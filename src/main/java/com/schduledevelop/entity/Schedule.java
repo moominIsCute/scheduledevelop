@@ -8,12 +8,10 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor
-public class Schedule extends BaseTime{
+public class Schedule extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +27,10 @@ public class Schedule extends BaseTime{
         this.contents = contents;
         this.name = name;
         this.password = password;
+    }
 
+    public void updateScd(String title, String contents){
+        this.title = title;
+        this.contents = contents;
     }
 }
