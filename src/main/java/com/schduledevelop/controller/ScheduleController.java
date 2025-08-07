@@ -31,16 +31,27 @@ public class ScheduleController {
         return ResponseEntity.ok(scdService.findSchedules(name));
     }
 
-    @GetMapping("/schedule/{Id}")
+    @GetMapping("/schedules/{Id}")
     //@PathVariable("Id") 이거 생각 안나서 인터넷 검색함
     public ResponseEntity<GetScdRespDto> getSchedules(@PathVariable("Id") Long Id) {
         return ResponseEntity.ok(scdService.findSchedule(Id));
     }
 
-    @PutMapping("/schedule/{Id}")
+    @PutMapping("/schedules/{Id}")
     public ResponseEntity<PatchScdRespDto> updateSchedule(
             @PathVariable("Id") Long id,
             @RequestBody PatchScdReqDto patchScdReqDto) {
         return ResponseEntity.ok(scdService.updateScd(id, patchScdReqDto));
     }
+
+    @DeleteMapping("/schedules/{Id}")
+    public void deleteSchedules(
+            @PathVariable("Id") Long id,
+            @RequestBody String password
+            ) {
+        scdService.deleteScd(id, password);
+
+    }
+
+
 }

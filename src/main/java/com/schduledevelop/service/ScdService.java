@@ -100,7 +100,15 @@ public class ScdService {
         } else {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
+    }
 
+    public void deleteScd(Long Id, String password) {
+        Schedule schedule = scdRepository.findById(Id).orElseThrow(
+                () -> new IllegalArgumentException("Schedule not found")
+        );
+        if (password.equals(schedule.getPassword())) {
+            scdRepository.deleteById(Id);
+        }
     }
 
 }
