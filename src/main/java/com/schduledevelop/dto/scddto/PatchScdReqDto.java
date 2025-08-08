@@ -1,8 +1,6 @@
-package com.schduledevelop.dto;
+package com.schduledevelop.dto.scddto;
 
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 
 @Getter

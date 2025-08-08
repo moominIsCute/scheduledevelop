@@ -1,12 +1,15 @@
 package com.schduledevelop.service;
 
-import com.schduledevelop.dto.PostUserReqDto;
-import com.schduledevelop.dto.PostUserRespDto;
+import com.schduledevelop.dto.userdto.GetUserRespDto;
+import com.schduledevelop.dto.userdto.PostUserReqDto;
+import com.schduledevelop.dto.userdto.PostUserRespDto;
 import com.schduledevelop.entity.User;
 import com.schduledevelop.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +27,17 @@ public class UserService {
         return postUserRespDto;
     }
 
-
+    public List<GetUserRespDto> findAll() {
+        List<User> users = userRepository.findAll();
+        List<GetUserRespDto> getUserRespDtos = new ArrayList<>();
+        for (User user : users) {
+            getUserRespDtos.add(new GetUserRespDto(
+                    user.getUsername(),
+                    user.getMail())
+            );
+        }
+        return getUserRespDtos;
+    }
 
 
 }

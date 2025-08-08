@@ -1,6 +1,4 @@
-package com.schduledevelop.dto;
-
-import java.time.LocalDateTime;
+package com.schduledevelop.dto.scddto;
 
 public class PatchScdRespDto {
 
