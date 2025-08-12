@@ -31,24 +31,24 @@ public class ScheduleController {
         return ResponseEntity.ok(scdService.findSchedules(name));
     }
 
-    @GetMapping("/users/{userId}/schedules")
-    public ResponseEntity<GetScdRespDto> getSchedule(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(scdService.findSchedule(userId));
+    @GetMapping("/schedules/{scheduleId}")
+    public ResponseEntity<GetScdRespDto> getSchedule(@PathVariable Long scheduleId) {
+        return ResponseEntity.ok(scdService.findSchedule(scheduleId));
     }
 
-    @PutMapping("/users/{userId}/schedules")
+    @PutMapping("/schedules/{scheduleId}")
     public ResponseEntity<PatchScdRespDto> updateSchedule(
-            @PathVariable("userId") Long userId,
+            @PathVariable Long scheduleId,
             @RequestBody PatchScdReqDto patchScdReqDto) {
-        return ResponseEntity.ok(scdService.updateScd(userId, patchScdReqDto));
+        return ResponseEntity.ok(scdService.updateScd(scheduleId, patchScdReqDto));
     }
 
-    @DeleteMapping("/schedules/{Id}")
+    @DeleteMapping("/schedules/{id}")
     public void deleteSchedules(
-            @PathVariable("userId") Long userId,
+            @PathVariable("id") Long id,
             @RequestBody String password
             ) {
-        scdService.deleteScd(userId, password);
+        scdService.deleteScd(id, password);
 
     }
 

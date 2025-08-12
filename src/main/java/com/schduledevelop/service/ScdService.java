@@ -21,7 +21,7 @@ public class ScdService {
 
     public PostScdRespDto save(PostScdReqDto reqDto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                ()-> new IllegalArgumentException("없는 유저입니다.")
+                () -> new IllegalArgumentException("없는 유저입니다.")
         );
         Schedule schedule = new Schedule(
                 reqDto.getTitle(),
@@ -57,38 +57,28 @@ public class ScdService {
 
     @Transactional(readOnly = true)
     public List<GetScdRespDto> findSchedules(String name) {
-        List<Schedule> schedules = scdRepository.findAll();
-        List<GetScdRespDto> dtos = new ArrayList<>();
-
-        if (name == null) {
-            for (Schedule schedule : schedules) {
-                GetScdRespDto scheduleGetOneResponse = new GetScdRespDto(
-                        schedule.getId(),
-                        schedule.getTitle(),
-                        schedule.getContents(),
-                        schedule.getName(),
-                        schedule.getCreateAt(),
-                        schedule.getModifiedAt()
-                );
-                dtos.add(scheduleGetOneResponse);
-            }
-            return dtos;
+        List<Schedule> schedules;
+        if (name == null || name.isEmpty()) {
+            schedules = scdRepository.findAll();
+        } else {
+            schedules = scdRepository.findByName(name);
         }
+
+        List<GetScdRespDto> dtos = new ArrayList<>();
         for (Schedule schedule : schedules) {
-            if (name.equals(schedule.getName())) {
-                GetScdRespDto scheduleGetOneResponse = new GetScdRespDto(
-                        schedule.getId(),
-                        schedule.getTitle(),
-                        schedule.getContents(),
-                        schedule.getName(),
-                        schedule.getCreateAt(),
-                        schedule.getModifiedAt()
-                );
-                dtos.add(scheduleGetOneResponse);
-            }
+            GetScdRespDto scheduleGetOneResponse = new GetScdRespDto(
+                    schedule.getId(),
+                    schedule.getTitle(),
+                    schedule.getContents(),
+                    schedule.getName(),
+                    schedule.getCreateAt(),
+                    schedule.getModifiedAt()
+            );
+            dtos.add(scheduleGetOneResponse);
         }
         return dtos;
     }
+
 
     @Transactional
     public PatchScdRespDto updateScd(Long Id, PatchScdReqDto reqDto) {
