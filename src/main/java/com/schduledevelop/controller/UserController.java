@@ -1,8 +1,8 @@
 package com.schduledevelop.controller;
 
 
-import com.schduledevelop.dto.userdto.GetUserRespDto;
-import com.schduledevelop.dto.userdto.PostUserReqDto;
+import com.schduledevelop.dto.userdto.UserRespDto;
+import com.schduledevelop.dto.userdto.UserReqDto;
 import com.schduledevelop.dto.userdto.PostUserRespDto;
 import com.schduledevelop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +19,26 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users")
-    ResponseEntity<PostUserRespDto> saveUser(@Validated @RequestBody PostUserReqDto  postUserReqDto) {
-        return ResponseEntity.ok(userService.save(postUserReqDto));
+    ResponseEntity<PostUserRespDto> saveUser(@Validated @RequestBody UserReqDto userReqDto) {
+        return ResponseEntity.ok(userService.save(userReqDto));
     }
 
-    @GetMapping("/user")
-    ResponseEntity<List<GetUserRespDto>> findAllUser() {
+    @GetMapping("/users")
+    ResponseEntity<List<UserRespDto>> findAllUser() {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/user/{id}")
-    ResponseEntity<GetUserRespDto> findByIdUser(@PathVariable String id) {
+    @GetMapping("/users/{id}")
+    ResponseEntity<UserRespDto> findByIdUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findById(id));
+    }
+
+    @PatchMapping("/users/{id}")
+    ResponseEntity<UserRespDto> updateUser(
+            @PathVariable Long id,
+            UserReqDto userReqDto) {
+        return ResponseEntity.ok(userService.upDate(id,userReqDto));
+
     }
 
 

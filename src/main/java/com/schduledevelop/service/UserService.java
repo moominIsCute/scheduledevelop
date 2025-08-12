@@ -1,7 +1,7 @@
 package com.schduledevelop.service;
 
-import com.schduledevelop.dto.userdto.GetUserRespDto;
-import com.schduledevelop.dto.userdto.PostUserReqDto;
+import com.schduledevelop.dto.userdto.UserRespDto;
+import com.schduledevelop.dto.userdto.UserReqDto;
 import com.schduledevelop.dto.userdto.PostUserRespDto;
 import com.schduledevelop.entity.User;
 import com.schduledevelop.repository.UserRepository;
@@ -17,10 +17,10 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public PostUserRespDto save(PostUserReqDto postUserReqDto) {
+    public PostUserRespDto save(UserReqDto userReqDto) {
         User user = new User(
-                postUserReqDto.getUsername(),
-                postUserReqDto.getMail());
+                userReqDto.getUsername(),
+                userReqDto.getMail());
         userRepository.save(user);
         PostUserRespDto postUserRespDto = new PostUserRespDto(
                 user.getUsername(),
@@ -28,25 +28,29 @@ public class UserService {
         return postUserRespDto;
     }
 
-    public List<GetUserRespDto> findAll() {
+    public List<UserRespDto> findAll() {
         List<User> users = userRepository.findAll();
-        List<GetUserRespDto> getUserRespDtos = new ArrayList<>();
+        List<UserRespDto> userRespDtos = new ArrayList<>();
         for (User user : users) {
-            getUserRespDtos.add(new GetUserRespDto(
+            userRespDtos.add(new UserRespDto(
                     user.getUsername(),
                     user.getMail())
             );
         }
-        return getUserRespDtos;
+        return userRespDtos;
     }
 
-    public GetUserRespDto findById(String id) {
+    public UserRespDto findById(Long id) {
 
-        Optional<User> user =  userRepository.findById(Long.valueOf(id));
-        GetUserRespDto getUserRespDto = new GetUserRespDto(user.get().getUsername(),user.get().getMail());
-        return getUserRespDto;
+        Optional<User> user = userRepository.findById(id);
+        UserRespDto userRespDto = new UserRespDto(user.get().getUsername(), user.get().getMail());
+        return userRespDto;
 
     }
 
-
+    public UserRespDto upDate(Long id, UserReqDto userReqDto) {
+        Optional<User> user = userRepository.findById(id);
+        UserRespDto userRespDto = new UserRespDto(user.get().getUsername(), user.get().getMail());
+        return userRespDto;
+    }
 }
