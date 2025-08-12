@@ -1,10 +1,7 @@
 package com.schduledevelop.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,15 +18,18 @@ public class Schedule extends BaseEntity {
     private String name;
     private String password;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
-    public Schedule(String title, String contents,  String name, String password) {
+    public Schedule(String title, String contents, String name, String password) {
         this.title = title;
         this.contents = contents;
         this.name = name;
         this.password = password;
     }
 
-    public void updateScd(String title, String contents){
+    public void updateScd(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }

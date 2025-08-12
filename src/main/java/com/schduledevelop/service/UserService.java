@@ -53,4 +53,9 @@ public class UserService {
         UserRespDto userRespDto = new UserRespDto(user.get().getUsername(), user.get().getMail());
         return userRespDto;
     }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
