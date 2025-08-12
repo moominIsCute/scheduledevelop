@@ -16,11 +16,12 @@ public class ScheduleController {
 
     private final ScdService scdService;
 
-    @PostMapping("/schedule")
+    @PostMapping("/users/{userId}/schedules")
     public ResponseEntity<PostScdRespDto> saveSchedule(
-            @RequestBody PostScdReqDto reqDto
+            @RequestBody PostScdReqDto reqDto,
+            @PathVariable Long userId
     ) {
-        return ResponseEntity.ok(scdService.save(reqDto));
+        return ResponseEntity.ok(scdService.save(reqDto, userId));
     }
 
     @GetMapping("/schedules")
@@ -30,25 +31,24 @@ public class ScheduleController {
         return ResponseEntity.ok(scdService.findSchedules(name));
     }
 
-    @GetMapping("/schedules/{Id}")
-    //@PathVariable("Id") 이거 생각 안나서 인터넷 검색함
-    public ResponseEntity<GetScdRespDto> getSchedules(@PathVariable("Id") Long Id) {
-        return ResponseEntity.ok(scdService.findSchedule(Id));
+    @GetMapping("/users/{userId}/schedules")
+    public ResponseEntity<GetScdRespDto> getSchedule(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(scdService.findSchedule(userId));
     }
 
-    @PutMapping("/schedules/{Id}")
+    @PutMapping("/users/{userId}/schedules")
     public ResponseEntity<PatchScdRespDto> updateSchedule(
-            @PathVariable("Id") Long id,
+            @PathVariable("userId") Long userId,
             @RequestBody PatchScdReqDto patchScdReqDto) {
-        return ResponseEntity.ok(scdService.updateScd(id, patchScdReqDto));
+        return ResponseEntity.ok(scdService.updateScd(userId, patchScdReqDto));
     }
 
     @DeleteMapping("/schedules/{Id}")
     public void deleteSchedules(
-            @PathVariable("Id") Long id,
+            @PathVariable("userId") Long userId,
             @RequestBody String password
             ) {
-        scdService.deleteScd(id, password);
+        scdService.deleteScd(userId, password);
 
     }
 

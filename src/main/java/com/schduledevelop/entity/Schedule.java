@@ -20,13 +20,14 @@ public class Schedule extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 
-    public Schedule(String title, String contents, String name, String password) {
+    public Schedule(String title, String contents, String name, String password, User user) {
         this.title = title;
         this.contents = contents;
         this.name = name;
         this.password = password;
+        this.user = user;
     }
 
     public void updateScd(String title, String contents) {

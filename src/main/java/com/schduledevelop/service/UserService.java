@@ -20,7 +20,10 @@ public class UserService {
     public PostUserRespDto save(UserReqDto userReqDto) {
         User user = new User(
                 userReqDto.getUsername(),
-                userReqDto.getMail());
+                userReqDto.getMail(),
+                userReqDto.getPassword()
+        );
+
         userRepository.save(user);
         PostUserRespDto postUserRespDto = new PostUserRespDto(
                 user.getUsername(),
@@ -49,13 +52,29 @@ public class UserService {
     }
 
     public UserRespDto upDate(Long id, UserReqDto userReqDto) {
-        Optional<User> user = userRepository.findById(id);
-        UserRespDto userRespDto = new UserRespDto(user.get().getUsername(), user.get().getMail());
-        return userRespDto;
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("User not found"));
+        if (user.getPassword().equals(userReqDto.getPassword())) {
+            user.update(
+                    userReqDto.getUsername(),
+                    userReqDto.getMail(),
+                    userReqDto.getPassword()
+            );
+            UserRespDto userRespDto = new UserRespDto(user.getUsername(), user.getMail());
+
+            userRepository.save(user);
+            return userRespDto;
+        } else {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
     }
 
-    public void delete(Long id) {
-        userRepository.deleteById(id);
+    public void delete(Long id, String password) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("User not found")
+        );
+        if (user.getPassword().equals(password)) {
+            userRepository.deleteById(id);
+        }
     }
-
 }

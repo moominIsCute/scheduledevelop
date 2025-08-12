@@ -18,10 +18,18 @@ public class User extends BaseEntity {
     private Long id;
     private String username;
     private String mail;
+    private String password;
 
-    public User(String username, String mail) {
+    public User(String username, String mail, String password) {
         this.username = username;
         this.mail = mail;
+        this.password = password;
+    }
+
+    public void update(String username, String mail, String password) {
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
     }
 
 

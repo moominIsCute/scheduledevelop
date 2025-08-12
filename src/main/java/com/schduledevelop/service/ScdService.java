@@ -3,7 +3,9 @@ package com.schduledevelop.service;
 
 import com.schduledevelop.dto.scddto.*;
 import com.schduledevelop.entity.Schedule;
+import com.schduledevelop.entity.User;
 import com.schduledevelop.repository.ScdRepository;
+import com.schduledevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +17,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScdService {
     private final ScdRepository scdRepository;
+    private final UserRepository userRepository;
 
-    public PostScdRespDto save(PostScdReqDto reqDto) {
+    public PostScdRespDto save(PostScdReqDto reqDto, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                ()-> new IllegalArgumentException("없는 유저입니다.")
+        );
         Schedule schedule = new Schedule(
                 reqDto.getTitle(),
                 reqDto.getContents(),
                 reqDto.getName(),
-                reqDto.getPassword()
+                reqDto.getPassword(),
+                user
         );
         Schedule save = scdRepository.save(schedule);
         PostScdRespDto respDto = new PostScdRespDto(
