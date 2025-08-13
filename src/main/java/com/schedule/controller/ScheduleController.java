@@ -1,9 +1,9 @@
-package com.schduledevelop.controller;
+package com.schedule.controller;
 
 
-import com.schduledevelop.dto.scddto.*;
-import com.schduledevelop.service.ScdService;
+import com.schedule.service.ScdService;
 
+import com.schedule.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

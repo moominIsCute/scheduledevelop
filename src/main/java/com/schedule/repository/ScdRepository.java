@@ -1,6 +1,6 @@
-package com.schduledevelop.repository;
+package com.schedule.repository;
 
-import com.schduledevelop.entity.Schedule;
+import com.schedule.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

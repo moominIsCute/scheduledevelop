@@ -1,11 +1,11 @@
-package com.schduledevelop.service;
+package com.schedule.service;
 
 
-import com.schduledevelop.dto.scddto.*;
-import com.schduledevelop.entity.Schedule;
+import com.schedule.entity.Schedule;
 import com.schduledevelop.entity.User;
-import com.schduledevelop.repository.ScdRepository;
+import com.schedule.repository.ScdRepository;
 import com.schduledevelop.repository.UserRepository;
+import com.schedule.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

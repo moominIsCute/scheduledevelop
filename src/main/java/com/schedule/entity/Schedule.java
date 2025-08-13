@@ -1,6 +1,8 @@
-package com.schduledevelop.entity;
+package com.schedule.entity;
 
 
+import com.schduledevelop.entity.BaseEntity;
+import com.schduledevelop.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
